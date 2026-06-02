@@ -20,6 +20,7 @@ import {
   RefreshCw,
   Sparkles,
   Eye,
+  EyeOff,
   Calendar,
   CheckCircle,
   AlertTriangle,
@@ -37,6 +38,7 @@ export default function Admin() {
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
   const [loginSubmitting, setLoginSubmitting] = useState(false);
 
@@ -641,16 +643,24 @@ export default function Admin() {
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                  <Key className="w-4 h-4" />
+                  <Lock className="w-4 h-4" />
                 </span>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl glass-input text-sm"
+                  className="w-full pl-10 pr-12 py-3 rounded-xl glass-input text-sm"
                   placeholder="Enter password"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
             </div>
 
@@ -992,8 +1002,8 @@ export default function Admin() {
                         onChange={(e) => setPostForm({ ...postForm, mediaType: e.target.value })}
                         className="w-full px-3.5 py-2.5 rounded-xl glass-input text-xs"
                       >
-                        <option value="image">Image</option>
-                        <option value="video">Video</option>
+                        <option value="image" className="bg-[#030712] text-white">Image</option>
+                        <option value="video" className="bg-[#030712] text-white">Video</option>
                       </select>
                     </div>
 
@@ -1049,8 +1059,8 @@ export default function Admin() {
                                   onChange={(e) => setEditPostForm({ ...editPostForm, mediaType: e.target.value })}
                                   className="w-full px-3 py-2 rounded-lg glass-input text-xs"
                                 >
-                                  <option value="image">Image</option>
-                                  <option value="video">Video</option>
+                                  <option value="image" className="bg-[#030712] text-white">Image</option>
+                                  <option value="video" className="bg-[#030712] text-white">Video</option>
                                 </select>
                               </div>
                               <div>
@@ -1173,7 +1183,7 @@ export default function Admin() {
                         className="w-full px-3.5 py-2.5 rounded-xl glass-input text-xs"
                       >
                         {galleryCategories.map((c) => (
-                          <option key={c} value={c}>{c}</option>
+                          <option key={c} value={c} className="bg-[#030712] text-white">{c}</option>
                         ))}
                       </select>
                     </div>
@@ -1278,14 +1288,14 @@ export default function Admin() {
                               <div>
                                 <label className="block text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-1">Category *</label>
                                 <select
-                                  value={editGalleryForm.category}
-                                  onChange={(e) => setEditGalleryForm({ ...editGalleryForm, category: e.target.value })}
-                                  className="w-full px-3 py-2 rounded-lg glass-input text-xs text-white"
-                                >
-                                  {galleryCategories.map((c) => (
-                                    <option key={c} value={c}>{c}</option>
-                                  ))}
-                                </select>
+                                   value={editGalleryForm.category}
+                                   onChange={(e) => setEditGalleryForm({ ...editGalleryForm, category: e.target.value })}
+                                   className="w-full px-3 py-2 rounded-lg glass-input text-xs text-white"
+                                 >
+                                   {galleryCategories.map((c) => (
+                                     <option key={c} value={c} className="bg-[#030712] text-white">{c}</option>
+                                   ))}
+                                 </select>
                               </div>
                               <div>
                                 <label className="block text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-1">Title</label>

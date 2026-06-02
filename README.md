@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🎉 Sharma Events
 
-## Getting Started
+<div align="center">
 
-First, run the development server:
+### Creating Unforgettable Celebrations Across Jharkhand
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🚧 **Website Currently Under Development** 🚧
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[🌐 Visit Website](https://sharmaevents.co.in)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+</div>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## About Sharma Events
 
-To learn more about Next.js, take a look at the following resources:
+Sharma Events is a professional event planning and management company serving Ramgarh, Chhattarpur, Palamau, and surrounding regions of Jharkhand.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+We specialize in delivering memorable experiences through elegant event design, premium decorations, and complete event management solutions.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Our Services
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 💍 Wedding Decoration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Luxury mandap decoration, floral themes, stage setups, and wedding venue styling.
+
+### 🎪 Tent & Canopy Setup
+
+Waterproof tents, premium canopy structures, and event infrastructure solutions.
+
+### 🍽️ Catering Services
+
+Multi-cuisine catering services with professional food presentation and service staff.
+
+### 🎵 DJ & Sound Systems
+
+Professional DJ setups, sound systems, live event audio, and entertainment arrangements.
+
+### 💡 Event Lighting
+
+Decorative lighting, stage lighting, intelligent lighting systems, and event illumination.
+
+### 🎂 Birthday Party Decoration
+
+Theme-based decorations, balloon styling, backdrops, and complete birthday event setups.
+
+---
+
+## Project Status
+
+### 🚧 Development In Progress
+
+The official Sharma Events website is currently under active development.
+
+Upcoming features include:
+
+* Event Portfolio Gallery
+* Online Booking System
+* Customer Testimonials
+* Event Showcase Pages
+* Service Details & Pricing
+* Contact & Inquiry Management
+* Admin Dashboard
+
+---
+
+## Service Areas
+
+📍 Ramgarh
+
+📍 Chhattarpur
+
+📍 Palamau
+
+📍 Medininagar
+
+📍 Jharkhand
+
+---
+
+## Contact Information
+
+### 📞 Phone
+
++91 79039 67800
+
+### 📧 Email
+
+[rahulsharma56291@gmail.com](mailto:rahulsharma56291@gmail.com)
+
+### 📸 Instagram
+
+@sharmaevents2000
+
+---
+
+## Technology Stack
+
+* Next.js
+* React.js
+* Tailwind CSS
+* JavaScript
+* Responsive Design
+
+---
+
+<div align="center">
+
+### Thank You For Visiting
+
+⭐ Website Development in Progress ⭐
+
+**Sharma Events – Creating Beautiful Memories**
+
+</div>
