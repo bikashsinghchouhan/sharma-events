@@ -24,7 +24,9 @@ import {
   CheckCircle,
   AlertTriangle,
   Mail,
-  Phone
+  Phone,
+  Menu,
+  X
 } from 'lucide-react';
 
 export default function Admin() {
@@ -40,6 +42,7 @@ export default function Admin() {
 
   // Dashboard Data State
   const [activeTab, setActiveTab] = useState('dashboard'); // dashboard, posts, gallery, messages
+  const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false);
   const [posts, setPosts] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -675,22 +678,62 @@ export default function Admin() {
   return (
     <div className="min-h-screen bg-[#02050b] text-gray-100 flex flex-col md:flex-row">
       
+      {/* Mobile Header Bar */}
+      <div className="flex md:hidden items-center justify-between px-6 py-4 bg-[#030712] border-b border-white/5 sticky top-0 z-30">
+        <Link href="/" className="flex items-center space-x-3 group">
+          <div className="h-9 w-9 relative shrink-0">
+            <img 
+              src="/sharma-logo.png" 
+              alt="Sharma Events Logo" 
+              className="h-full w-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" 
+            />
+          </div>
+          <span className="font-extrabold text-sm tracking-wider text-white">
+            SHARMA<span className="text-cyber-cyan">EVENTS</span>
+          </span>
+        </Link>
+        <button
+          onClick={() => setIsAdminMenuOpen(!isAdminMenuOpen)}
+          className="text-gray-300 hover:text-white focus:outline-none p-1.5 rounded-lg glass-panel hover:bg-white/10 transition-colors"
+        >
+          {isAdminMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+      </div>
+
+      {/* Mobile Sidebar Overlay Backdrop */}
+      {isAdminMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setIsAdminMenuOpen(false)}
+        />
+      )}
+
       {/* Sidebar Navigation */}
-      <aside className="w-full md:w-64 border-b md:border-b-0 md:border-r border-white/5 bg-[#030712] shrink-0 p-6 flex flex-col justify-between gap-8">
+      <aside className={`fixed md:static inset-y-0 left-0 z-50 w-80 max-w-[85vw] md:w-64 border-r border-white/5 bg-[#030712] shrink-0 p-6 flex flex-col justify-between gap-8 transition-transform duration-300 ease-in-out md:translate-x-0 ${
+        isAdminMenuOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}>
         <div>
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group mb-8">
-            <div className="h-8 w-8 sm:h-10 sm:w-10 relative transition-all duration-300 shrink-0 group-hover:scale-105">
-              <img 
-                src="/sharma-logo.png" 
-                alt="Sharma Events Logo" 
-                className="h-full w-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" 
-              />
-            </div>
-            <span className="font-extrabold text-sm sm:text-lg tracking-wider text-white">
-              SHARMA<span className="text-cyber-cyan">EVENTS</span>
-            </span>
-          </Link>
+          <div className="flex items-center justify-between mb-8">
+            <Link href="/" className="flex items-center space-x-3 group" onClick={() => setIsAdminMenuOpen(false)}>
+              <div className="h-8 w-8 sm:h-10 sm:w-10 relative transition-all duration-300 shrink-0 group-hover:scale-105">
+                <img 
+                  src="/sharma-logo.png" 
+                  alt="Sharma Events Logo" 
+                  className="h-full w-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" 
+                />
+              </div>
+              <span className="font-extrabold text-sm sm:text-lg tracking-wider text-white">
+                SHARMA<span className="text-cyber-cyan">EVENTS</span>
+              </span>
+            </Link>
+            <button
+              onClick={() => setIsAdminMenuOpen(false)}
+              className="md:hidden text-gray-400 hover:text-white focus:outline-none p-1 rounded-lg glass-panel hover:bg-white/10 transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
 
           {/* Nav Items */}
           <div className="space-y-1">
@@ -705,7 +748,10 @@ export default function Admin() {
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => {
+                    setActiveTab(tab.id);
+                    setIsAdminMenuOpen(false);
+                  }}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold tracking-wide transition-all ${
                     activeTab === tab.id
                       ? 'bg-gradient-to-r from-cyber-cyan/15 to-cyber-purple/15 border-l-4 border-cyber-cyan text-white'
@@ -733,8 +779,11 @@ export default function Admin() {
           </div>
 
           <button
-            onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-white/10 hover:border-rose-500/50 hover:bg-rose-500/5 text-gray-400 hover:text-rose-400 text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer"
+            onClick={() => {
+              setIsAdminMenuOpen(false);
+              handleLogout();
+            }}
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-white/10 hover:border-rose-500/5 hover:bg-rose-500/5 text-gray-400 hover:text-rose-400 text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
             Logout
