@@ -1,0 +1,81 @@
+[
+  {
+    "id": "gal-1",
+    "title": "Royal Mandap Decoration",
+    "description": "Exquisite floral mandap with luxury seating and ambient lighting for a grand wedding.",
+    "images": [
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "category": "Wedding"
+  },
+  {
+    "id": "gal-2",
+    "title": "Starlight Stage Setting",
+    "description": "Elegant white floral themed wedding stage decoration with modern LED backdrops.",
+    "images": [
+      "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "category": "Wedding"
+  },
+  {
+    "id": "gal-3",
+    "title": "Vibrant Balloon Arch",
+    "description": "Multi-colored custom balloon backdrop for a premium kid's birthday celebration.",
+    "images": [
+      "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "category": "Birthday"
+  },
+  {
+    "id": "gal-4",
+    "title": "Gold & Glitter Birthday",
+    "description": "Customized luxury birthday setup with stylized backdrop, marquee numbers, and lighting.",
+    "images": [
+      "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "category": "Birthday"
+  },
+  {
+    "id": "gal-5",
+    "title": "Grand Wedding Canopy",
+    "description": "Premium waterproof dome tenting decorated with floral runners and hanging glass chandeliers.",
+    "images": [
+      "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "category": "Tent"
+  },
+  {
+    "id": "gal-6",
+    "title": "Luxury Dining Tent Draping",
+    "description": "Elegant ceiling drapes in white and gold for a buffet and dining setup.",
+    "images": [
+      "https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "category": "Tent"
+  },
+  {
+    "id": "gal-7",
+    "title": "Gourmet Buffet Display",
+    "images": [
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "category": "Catering"
+  },
+  {
+    "id": "gal-8",
+    "title": "Concert Quality DJ Sound",
+    "images": [
+      "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "category": "DJ & Sound"
+  },
+  {
+    "id": "gal-9",
+    "title": "Neon Event Uplighting",
+    "images": [
+      "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "category": "Lighting"
+  }
+]
