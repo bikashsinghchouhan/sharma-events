@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { FaWhatsapp } from 'react-icons/fa';
+import fallbackPosts from '../../data/posts.json';
+import fallbackGallery from '../../data/gallery.json';
 import { 
   Sparkles, 
   ChevronRight, 
@@ -24,6 +26,15 @@ import {
   X,
   Play
 } from 'lucide-react';
+
+const fallbackSlides = [
+  { id: "slide-1", imageUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80", caption: "Creating Unforgettable Celebrations with Elegant Decorations", order: 1 },
+  { id: "slide-2", imageUrl: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=1920&q=80", caption: "Grand Waterproof Canopy & Heavy Truss Tent Installations", order: 2 },
+  { id: "slide-3", imageUrl: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1920&q=80", caption: "Concert Quality DJ & Synchronized Intelligent Lighting", order: 3 },
+  { id: "slide-4", imageUrl: "https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?auto=format&fit=crop&w=1920&q=80", caption: "Luxury Catering Displays & Dynamic Multi-Cuisine Presentation", order: 4 },
+  { id: "slide-5", imageUrl: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1920&q=80", caption: "Custom Balloons Styling & Birthday Backdrops for Kids & Adults", order: 5 },
+  { id: "slide-6", imageUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1920&q=80", caption: "Sharma Events - Your Partner in Creating Beautiful Memories", order: 6 },
+];
 
 export default function Home() {
   // States
@@ -94,9 +105,12 @@ export default function Home() {
       if (res.ok) {
         const data = await res.json();
         setPosts(data); // fetch all posts to support pagination on client
+      } else {
+        setPosts(fallbackPosts);
       }
     } catch (err) {
-      console.error("Error fetching posts:", err);
+      console.warn("Failed to fetch posts, using local data fallback:", err);
+      setPosts(fallbackPosts);
     }
   };
 
@@ -106,9 +120,12 @@ export default function Home() {
       if (res.ok) {
         const data = await res.json();
         setHeroSlides(data);
+      } else {
+        setHeroSlides(fallbackSlides);
       }
     } catch (err) {
-      console.error("Error fetching hero slides:", err);
+      console.warn("Failed to fetch slides, using local data fallback:", err);
+      setHeroSlides(fallbackSlides);
     }
   };
 
@@ -118,9 +135,12 @@ export default function Home() {
       if (res.ok) {
         const data = await res.json();
         setGallery(data);
+      } else {
+        setGallery(fallbackGallery);
       }
     } catch (err) {
-      console.error("Error fetching gallery:", err);
+      console.warn("Failed to fetch gallery, using local data fallback:", err);
+      setGallery(fallbackGallery);
     }
   };
 
@@ -150,6 +170,10 @@ export default function Home() {
         body: JSON.stringify(form)
       });
 
+      if (res.status === 404) {
+        throw new Error('API Endpoint Not Found (static environment)');
+      }
+
       const data = await res.json();
 
       if (res.ok) {
@@ -165,7 +189,24 @@ export default function Home() {
         setFormStatus({ submitting: false, success: false, error: data.error || 'Something went wrong' });
       }
     } catch (err) {
-      setFormStatus({ submitting: false, success: false, error: 'Network error. Please try again.' });
+      console.warn("API message submission failed, redirecting to WhatsApp fallback...", err);
+      // Construct a pre-filled WhatsApp message redirect
+      const msg = `Hi Sharma Events, my name is ${form.name}. I would like to make an inquiry.\n\n` +
+                  `*Phone:* ${form.phone}\n` +
+                  `*Email:* ${form.email || 'N/A'}\n` +
+                  `*Event Date:* ${form.eventDate || 'N/A'}\n` +
+                  `*Message:* ${form.message}`;
+      const waUrl = `https://wa.me/917903967800?text=${encodeURIComponent(msg)}`;
+      
+      setFormStatus({ submitting: false, success: true, error: null });
+      setForm({
+        name: '',
+        email: '',
+        phone: '',
+        eventDate: '',
+        message: ''
+      });
+      window.open(waUrl, '_blank');
     }
   };
 
