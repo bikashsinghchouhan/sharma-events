@@ -598,9 +598,13 @@ export default function Admin() {
           <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-cyber-cyan/5 blur-lg" />
           <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-cyber-purple/5 blur-lg" />
           
-          <div className="text-center mb-8">
-            <div className="inline-flex p-3 rounded-2xl bg-gradient-to-br from-cyber-cyan to-cyber-purple text-white shadow-md mb-4">
-              <Lock className="w-6 h-6" />
+          <div className="text-center mb-8 flex flex-col items-center">
+            <div className="h-16 w-16 relative transition-all duration-300 shrink-0 mb-4 hover:scale-105">
+              <img 
+                src="/sharma-logo.png" 
+                alt="Sharma Events Logo" 
+                className="h-full w-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" 
+              />
             </div>
             <h1 className="text-2xl font-extrabold text-white tracking-wide">
               ADMIN<span className="text-cyber-cyan">PANEL</span>
@@ -676,14 +680,14 @@ export default function Admin() {
         <div>
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group mb-8">
-            <div className="h-10 w-10 relative transition-all duration-300 shrink-0 group-hover:scale-105">
+            <div className="h-8 w-8 sm:h-10 sm:w-10 relative transition-all duration-300 shrink-0 group-hover:scale-105">
               <img 
                 src="/sharma-logo.png" 
                 alt="Sharma Events Logo" 
                 className="h-full w-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" 
               />
             </div>
-            <span className="font-extrabold text-lg tracking-wider text-white">
+            <span className="font-extrabold text-sm sm:text-lg tracking-wider text-white">
               SHARMA<span className="text-cyber-cyan">EVENTS</span>
             </span>
           </Link>

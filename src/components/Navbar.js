@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Menu, X, Shield } from 'lucide-react';
+import { Menu, X, Shield, ChevronRight } from 'lucide-react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +22,23 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile drawer on route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  // Prevent scroll when mobile drawer is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   const handleNavClick = (e, sectionId) => {
     if (pathname === '/') {
@@ -47,7 +64,8 @@ export default function Navbar() {
   ];
 
   return (
-    <nav
+    <>
+      <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-cyber-dark/85 backdrop-blur-md border-b border-white/5 py-3 shadow-lg shadow-black/20'
@@ -58,14 +76,14 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
-            <div className="h-12 w-12 relative transition-all duration-300 shrink-0 group-hover:scale-105">
+            <div className="h-9 w-9 sm:h-12 sm:w-12 relative transition-all duration-300 shrink-0 group-hover:scale-105">
               <img 
                 src="/sharma-logo.png" 
                 alt="Sharma Events Logo" 
                 className="h-full w-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" 
               />
             </div>
-            <span className="font-extrabold text-xl sm:text-2xl tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-400 group-hover:to-cyber-cyan transition-all duration-300">
+            <span className="font-extrabold text-sm sm:text-2xl lg:text-3xl tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-400 group-hover:to-cyber-cyan transition-all duration-300">
               SHARMA<span className="text-cyber-cyan">EVENTS</span>
             </span>
           </Link>
@@ -103,36 +121,77 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+    </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Drawer Overlay Backdrop */}
+      <div 
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] md:hidden transition-opacity duration-300 ${
+          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setIsOpen(false)}
+      />
+
+      {/* Mobile Drawer panel */}
       <div
-        className={`md:hidden absolute top-full left-0 right-0 glass-panel border-t border-white/5 transition-all duration-300 ease-in-out ${
-          isOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-4 invisible'
+        className={`fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-[#02050c]/95 backdrop-blur-xl border-l border-white/5 z-[70] shadow-2xl transition-transform duration-300 ease-in-out md:hidden flex flex-col p-6 ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="px-4 pt-4 pb-6 space-y-3 bg-cyber-dark/95 backdrop-blur-lg">
-          {navLinks.map((link) => (
+        {/* Header */}
+        <div className="flex items-center justify-between pb-6 border-b border-white/5">
+          <Link href="/" className="flex items-center space-x-3 group" onClick={() => setIsOpen(false)}>
+            <div className="h-10 w-10 relative transition-all duration-300 shrink-0">
+              <img 
+                src="/sharma-logo.png" 
+                alt="Sharma Events Logo" 
+                className="h-full w-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" 
+              />
+            </div>
+            <span className="font-extrabold text-lg tracking-wider text-white">
+              SHARMA<span className="text-cyber-cyan">EVENTS</span>
+            </span>
+          </Link>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="text-gray-400 hover:text-white focus:outline-none p-1.5 rounded-lg glass-panel hover:bg-white/10 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Links */}
+        <div className="flex-1 py-8 flex flex-col space-y-2 overflow-y-auto">
+          {navLinks.map((link, idx) => (
             <a
               key={link.id}
               href={`/#${link.id}`}
-              onClick={(e) => handleNavClick(e, link.id)}
-              className="block px-3 py-2.5 rounded-lg text-gray-300 hover:text-cyber-cyan hover:bg-white/5 font-semibold tracking-wide uppercase text-sm"
+              onClick={(e) => {
+                setIsOpen(false);
+                handleNavClick(e, link.id);
+              }}
+              style={{ transitionDelay: isOpen ? `${idx * 50}ms` : '0ms' }}
+              className={`flex items-center justify-between px-4 py-3 rounded-xl text-gray-300 hover:text-cyber-cyan hover:bg-white/5 font-semibold tracking-wide uppercase text-sm border border-transparent hover:border-white/5 transition-all duration-300 ${
+                isOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
+              }`}
             >
-              {link.name}
+              <span>{link.name}</span>
+              <ChevronRight className="w-4 h-4 text-cyber-cyan/50" />
             </a>
           ))}
-          <div className="pt-2 border-t border-white/5">
-            <Link
-              href="/admin"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center justify-center gap-2 w-full py-3 rounded-lg text-sm font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-cyber-cyan/20 to-cyber-purple/20 border border-cyber-cyan/30 hover:border-cyber-purple/50 transition-all"
-            >
-              <Shield className="w-4 h-4 text-cyber-purple" />
-              Admin Dashboard
-            </Link>
-          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="pt-6 border-t border-white/5 space-y-4">
+          <Link
+            href="/admin"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-cyber-cyan/20 to-cyber-purple/20 border border-cyber-cyan/30 hover:border-cyber-purple/50 transition-all shadow-md shadow-cyber-cyan/5"
+          >
+            <Shield className="w-4 h-4 text-cyber-purple" />
+            Admin Dashboard
+          </Link>
         </div>
       </div>
-    </nav>
+    </>
   );
 }

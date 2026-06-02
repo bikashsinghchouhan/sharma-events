@@ -214,7 +214,7 @@ export default function Home() {
       <Navbar />
 
     {/* Hero Section */}
-    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <section id="home" className="relative min-h-[75vh] sm:min-h-screen flex items-center justify-center pt-20 overflow-hidden">
       
       {/* Slideshow background images */}
       {heroSlides.length > 0 ? (
@@ -264,67 +264,63 @@ export default function Home() {
           </span>
         </h1>
           
-          <p className="max-w-3xl mx-auto text-gray-400 text-lg sm:text-xl leading-relaxed mb-12">
+          <p className="hidden sm:block max-w-3xl mx-auto text-gray-400 text-lg sm:text-xl leading-relaxed mb-12">
             Sharma Events delivers luxury Wedding Decoration, robust Tent & Canopy setups, gourmet Catering, and concert-grade DJ Sound across Ramgarh, Chhattarpur, Palamau, and Jharkhand.
           </p>
           
+          {/* Quick Direct Contacts (Icons only) */}
+          <div className="mt-10 mb-8 flex justify-center items-center gap-4">
+            <a 
+              href="https://wa.me/917903967800" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="p-3.5 rounded-xl bg-emerald-500/5 text-emerald-400 border border-emerald-500/25 hover:bg-emerald-500/15 hover:text-emerald-300 hover:border-emerald-500/50 backdrop-blur-md transition-all duration-350 flex items-center justify-center shadow-lg shadow-emerald-500/5 scale-100 hover:scale-105 active:scale-95 cursor-pointer" 
+              title="Chat on WhatsApp"
+            >
+              <FaWhatsapp className="w-5 h-5" />
+            </a>
+            
+            <a 
+              href="https://www.instagram.com/sharmaevents2000?igsh=ZTlvN2ZqMGVyOHo3" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="p-3.5 rounded-xl bg-pink-500/5 text-pink-400 border border-pink-500/25 hover:bg-pink-500/15 hover:text-pink-300 hover:border-pink-500/50 backdrop-blur-md transition-all duration-350 flex items-center justify-center shadow-lg shadow-pink-500/5 scale-100 hover:scale-105 active:scale-95 cursor-pointer" 
+              title="Follow on Instagram"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+
+            <a 
+              href="mailto:rahulsharma56291@gmail.com" 
+              className="p-3.5 rounded-xl bg-rose-500/5 text-rose-400 border border-rose-500/25 hover:bg-rose-500/15 hover:text-rose-300 hover:border-rose-500/50 backdrop-blur-md transition-all duration-355 flex items-center justify-center shadow-lg shadow-rose-500/5 scale-100 hover:scale-105 active:scale-95 cursor-pointer" 
+              title="Send Email"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </a>
+          </div>
+
+          {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-5">
             <a
               href="#contact"
-              className="px-8 py-4 rounded-xl text-sm uppercase tracking-wider text-white font-bold cyber-button shadow-lg"
+              className="px-8 py-4 rounded-xl text-sm uppercase tracking-wider text-white font-bold cyber-button shadow-lg w-full sm:w-auto text-center"
             >
               Get In Touch
             </a>
             <a
               href="#services"
-              className="px-8 py-4 rounded-xl text-sm uppercase tracking-wider text-gray-300 font-bold glass-panel hover:bg-white/10 hover:text-white border border-white/10 transition-all duration-300 flex items-center gap-2"
+              className="px-8 py-4 rounded-xl text-sm uppercase tracking-wider text-gray-300 font-bold glass-panel hover:bg-white/10 hover:text-white border border-white/10 transition-all duration-300 flex items-center justify-center gap-2 w-full sm:w-auto"
             >
               Our Services
               <ChevronRight className="w-4 h-4" />
             </a>
-          </div>
-
-          {/* Quick Direct Contacts */}
-          <div className="mt-10 flex flex-col items-center gap-3">
-            <span className="text-gray-400/80 text-[10px] font-semibold uppercase tracking-widest bg-white/5 px-3 py-1 rounded-full border border-white/5">
-              Connect Directly
-            </span>
-            <div className="flex justify-center items-center gap-4">
-              <a 
-                href="https://wa.me/917903967800" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="p-3.5 rounded-xl bg-emerald-500/5 text-emerald-400 border border-emerald-500/25 hover:bg-emerald-500/15 hover:text-emerald-300 hover:border-emerald-500/50 backdrop-blur-md transition-all duration-350 flex items-center justify-center shadow-lg shadow-emerald-500/5 scale-100 hover:scale-105 active:scale-95 cursor-pointer" 
-                title="Chat on WhatsApp"
-              >
-                <FaWhatsapp className="w-5 h-5" />
-              </a>
-              
-              <a 
-                href="https://www.instagram.com/sharmaevents2000?igsh=ZTlvN2ZqMGVyOHo3" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="p-3.5 rounded-xl bg-pink-500/5 text-pink-400 border border-pink-500/25 hover:bg-pink-500/15 hover:text-pink-300 hover:border-pink-500/50 backdrop-blur-md transition-all duration-350 flex items-center justify-center shadow-lg shadow-pink-500/5 scale-100 hover:scale-105 active:scale-95 cursor-pointer" 
-                title="Follow on Instagram"
-              >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                </svg>
-              </a>
-
-              <a 
-                href="mailto:rahulsharma56291@gmail.com" 
-                className="p-3.5 rounded-xl bg-rose-500/5 text-rose-400 border border-rose-500/25 hover:bg-rose-500/15 hover:text-rose-300 hover:border-rose-500/50 backdrop-blur-md transition-all duration-355 flex items-center justify-center shadow-lg shadow-rose-500/5 scale-100 hover:scale-105 active:scale-95 cursor-pointer" 
-                title="Send Email"
-              >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-              </a>
-            </div>
           </div>
 
           {/* Quick Metrics */}

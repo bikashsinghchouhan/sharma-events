@@ -19,14 +19,14 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="col-span-1 md:col-span-1">
             <Link href="/" className="flex items-center space-x-3 mb-4 group">
-              <div className="h-11 w-11 relative transition-all duration-300 shrink-0 group-hover:scale-105">
+              <div className="h-9 w-9 sm:h-11 sm:w-11 relative transition-all duration-300 shrink-0 group-hover:scale-105">
                 <img 
                   src="/sharma-logo.png" 
                   alt="Sharma Events Logo" 
                   className="h-full w-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" 
                 />
               </div>
-              <span className="font-extrabold text-xl tracking-wider text-white">
+              <span className="font-extrabold text-sm sm:text-xl lg:text-2xl tracking-wider text-white">
                 SHARMA<span className="text-cyber-cyan">EVENTS</span>
               </span>
             </Link>
