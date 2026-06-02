@@ -2,36 +2,65 @@
 
 # 🎉 Sharma Events
 
-### 🚧 Website Under Development
+### Creating Unforgettable Celebrations Across Jharkhand
 
-Building a premium event management experience for weddings, parties, catering, tent setups, DJ & lighting services across Jharkhand.
+<p>
+  <a href="https://sharmaevents.co.in">
+    <img src="https://img.shields.io/badge/Website-sharmaevents.co.in-blue?style=for-the-badge" />
+  </a>
+</p>
 
-🌐 <a href="https://sharmaevents.co.in">sharmaevents.co.in</a>
+<p>
+  <img src="https://img.shields.io/badge/Status-Under%20Development-orange?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Version-Coming%20Soon-success?style=for-the-badge" />
+</p>
 
 <br/>
 
-🛠️ **Work in Progress**  
-New features, galleries, and event showcases are being added regularly.
+## 🚧 Website Under Development
+
+We're currently building a modern platform to showcase our event management services, portfolio, and event experiences.
+
+**Thank you for your patience while we prepare something amazing.**
 
 </div>
 
 ---
 
-### Services
+## ✨ Our Services
 
-✨ Wedding Decoration  
-🎪 Tent & Canopy Setup  
-🍽️ Catering Services  
-🎵 DJ & Sound Systems  
-💡 Event Lighting  
-🎂 Birthday Decoration  
+* 💍 Wedding Decoration
+* 🎪 Tent & Canopy Setup
+* 🍽️ Catering Services
+* 🎵 DJ & Sound Systems
+* 💡 Event Lighting
+* 🎂 Birthday Decorations
+* 🎊 Event Management
+
+---
+
+## 📍 Service Areas
+
+**Ramgarh • Chhattarpur • Palamau • Jharkhand**
+
+---
+
+## 📞 Contact
+
+📱 **+91 79039 67800**
+
+📧 **[rahulsharma56291@gmail.com](mailto:rahulsharma56291@gmail.com)**
+
+📸 **@sharmaevents2000**
 
 ---
 
 <div align="center">
 
-**Thank you for visiting ❤️**
+### ❤️ Sharma Events
 
-⭐ Launching Soon ⭐
+**Creating Beautiful Memories**
+
+⭐ Website Launching Soon ⭐
 
 </div>
