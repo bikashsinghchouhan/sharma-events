@@ -1,0 +1,1 @@
+# Bypass Jekyll processing on GitHub Pages so that directories starting with an underscore (like _next/) are served properly.
