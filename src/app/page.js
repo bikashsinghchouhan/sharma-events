@@ -478,29 +478,9 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Stats Section */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-20">
-            {[
-              { number: '500+', label: 'SUCCESSFUL EVENTS' },
-              { number: '25+', label: 'YEARS EXPERIENCE' },
-              { number: '500+', label: 'CLIENT SATISFACTION' },
-              { number: '15+', label: 'EVENT SERVICES' }
-            ].map((stat, i) => (
-              <div
-                key={i}
-                className="p-6 sm:p-8 rounded-2xl border border-white/5 bg-[#070b13]/60 backdrop-blur-md text-center flex flex-col justify-center items-center group hover:border-cyber-cyan/30 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
-              >
-                <span className="text-3.5xl sm:text-4xl font-extrabold bg-gradient-to-r from-cyber-cyan via-[#8b5cf6] to-cyber-purple bg-clip-text text-transparent mb-2 transition-transform duration-300 group-hover:scale-105">
-                  {stat.number}
-                </span>
-                <span className="text-[10px] sm:text-xs font-bold text-gray-400 tracking-widest uppercase">
-                  {stat.label}
-                </span>
-              </div>
-            ))}
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {services.map((svc, idx) => {
               const Icon = svc.icon;
               return (
@@ -523,6 +503,27 @@ export default function Home() {
                 </div>
               );
             })}
+          </div>
+          {/* Stats Section */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-20">
+            {[
+              { number: '500+', label: 'SUCCESSFUL EVENTS' },
+              { number: '25+', label: 'YEARS EXPERIENCE' },
+              { number: '500+', label: 'CLIENT SATISFACTION' },
+              { number: '15+', label: 'EVENT SERVICES' }
+            ].map((stat, i) => (
+              <div
+                key={i}
+                className="p-6 sm:p-8 rounded-2xl border border-white/5 bg-[#070b13]/60 backdrop-blur-md text-center flex flex-col justify-center items-center group hover:border-cyber-cyan/30 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+              >
+                <span className="text-3.5xl sm:text-4xl font-extrabold bg-gradient-to-r from-cyber-cyan via-[#8b5cf6] to-cyber-purple bg-clip-text text-transparent mb-2 transition-transform duration-300 group-hover:scale-105">
+                  {stat.number}
+                </span>
+                <span className="text-[10px] sm:text-xs font-bold text-gray-400 tracking-widest uppercase">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -895,7 +896,7 @@ export default function Home() {
                           value={form.name}
                           onChange={handleInputChange}
                           className="w-full px-4 py-3 rounded-xl glass-input text-sm"
-                          placeholder="e.g. Bikas Sharma"
+                          placeholder="e.g. Bikash Singh Chauhan"
                         />
                       </div>
                       <div>
@@ -910,7 +911,7 @@ export default function Home() {
                           value={form.email}
                           onChange={handleInputChange}
                           className="w-full px-4 py-3 rounded-xl glass-input text-sm"
-                          placeholder="e.g. bikas@example.com"
+                          placeholder="e.g. bikashkrsin2@gmail.com"
                         />
                       </div>
                     </div>
@@ -927,7 +928,7 @@ export default function Home() {
                           value={form.phone}
                           onChange={handleInputChange}
                           className="w-full px-4 py-3 rounded-xl glass-input text-sm"
-                          placeholder="e.g. +91 99999 88888"
+                          placeholder="e.g. +91 9304870789"
                         />
                       </div>
                       <div>
