@@ -116,10 +116,40 @@ export default function Footer() {
         <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-8" />
 
         {/* Footer Bottom */}
-        <div className="flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-4">
           <div>
             © {new Date().getFullYear()} <span className="text-gray-400">Sharma Events</span>. All rights reserved.
           </div>
+          
+          <div className="flex items-center gap-2">
+            <span className="text-gray-500">Developed by:</span>
+            <span className="text-gray-300 font-medium">Bikash Singh Chauhan</span>
+            <div className="flex items-center gap-2 ml-1">
+              <a
+                href="https://www.instagram.com/bikash_singh_chauhan_01?igsh=MWR3dGhzaW54eXJhMA=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-pink-400 transition-colors"
+                aria-label="Instagram"
+              >
+                <svg className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <a
+                href="https://wa.me/919304870789"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-emerald-400 transition-colors flex items-center"
+                aria-label="WhatsApp"
+              >
+                <FaWhatsapp className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+
           <div className="flex items-center gap-2">
             <span className="text-gray-400 hover:text-cyber-cyan transition-colors">sharmaevents.co.in</span>
             <span className="text-gray-600">|</span>
