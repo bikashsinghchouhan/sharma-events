@@ -6,22 +6,22 @@ import Footer from '@/components/Footer';
 import { FaWhatsapp } from 'react-icons/fa';
 import fallbackPosts from '../../data/posts.json';
 import fallbackGallery from '../../data/gallery.json';
-import { 
-  Sparkles, 
-  ChevronRight, 
+import {
+  Sparkles,
+  ChevronRight,
   ChevronLeft,
-  MapPin, 
-  Phone, 
-  Mail, 
-  Calendar, 
-  Clock, 
-  Send, 
-  Flame, 
-  Heart, 
-  Tent, 
-  UtensilsCrossed, 
-  Music, 
-  Lightbulb, 
+  MapPin,
+  Phone,
+  Mail,
+  Calendar,
+  Clock,
+  Send,
+  Flame,
+  Heart,
+  Tent,
+  UtensilsCrossed,
+  Music,
+  Lightbulb,
   PartyPopper,
   X,
   Play
@@ -40,7 +40,7 @@ export default function Home() {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [visiblePostsCount, setVisiblePostsCount] = useState(3);
   const [visibleGalleryCount, setVisibleGalleryCount] = useState(9);
-  
+
   // Contact form state
   const [form, setForm] = useState({
     name: '',
@@ -144,8 +144,8 @@ export default function Home() {
   // Filter categories
   const categories = ['All', 'Wedding', 'Birthday', 'Tent', 'Catering', 'DJ & Sound', 'Lighting'];
 
-  const filteredGallery = activeFilter === 'All' 
-    ? gallery 
+  const filteredGallery = activeFilter === 'All'
+    ? gallery
     : gallery.filter(item => item.category === activeFilter);
 
   // Form submit handler
@@ -189,12 +189,12 @@ export default function Home() {
       console.warn("API message submission failed, redirecting to WhatsApp fallback...", err);
       // Construct a pre-filled WhatsApp message redirect
       const msg = `Hi Sharma Events, my name is ${form.name}. I would like to make an inquiry.\n\n` +
-                  `*Phone:* ${form.phone}\n` +
-                  `*Email:* ${form.email || 'N/A'}\n` +
-                  `*Event Date:* ${form.eventDate || 'N/A'}\n` +
-                  `*Message:* ${form.message}`;
+        `*Phone:* ${form.phone}\n` +
+        `*Email:* ${form.email || 'N/A'}\n` +
+        `*Event Date:* ${form.eventDate || 'N/A'}\n` +
+        `*Message:* ${form.message}`;
       const waUrl = `https://wa.me/917903967800?text=${encodeURIComponent(msg)}`;
-      
+
       setFormStatus({ submitting: false, success: true, error: null });
       setForm({
         name: '',
@@ -251,78 +251,77 @@ export default function Home() {
     <>
       <Navbar />
 
-    {/* Hero Section */}
-    <section id="home" className="relative min-h-[75vh] sm:min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-      
-      {/* Slideshow background images */}
-      {heroSlides.length > 0 ? (
-        <div className="absolute inset-0 z-0 select-none">
-          {heroSlides.map((slide, idx) => (
-            <div
-              key={slide.id}
-              className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out scale-100 ${
-                activeSlideIndex === idx 
-                  ? 'opacity-65 scale-100 filter saturate-100' 
+      {/* Hero Section */}
+      <section id="home" className="relative min-h-[75vh] sm:min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+
+        {/* Slideshow background images */}
+        {heroSlides.length > 0 ? (
+          <div className="absolute inset-0 z-0 select-none">
+            {heroSlides.map((slide, idx) => (
+              <div
+                key={slide.id}
+                className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out scale-100 ${activeSlideIndex === idx
+                  ? 'opacity-65 scale-100 filter saturate-100'
                   : 'opacity-0 scale-100'
-              }`}
-              style={{ backgroundImage: `url(${slide.imageUrl})` }}
-            />
-          ))}
-          {/* Dark vignette overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-cyber-dark via-cyber-dark/50 to-cyber-dark/20" />
-        </div>
-      ) : (
-        /* Fallback grid background */
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-      )}
-      
-      {/* Glow grid mesh background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:4rem_4rem] z-1" />
-      
-      {/* Glowing orbs */}
-      <div className="absolute top-1/4 left-1/10 w-96 h-96 rounded-full bg-cyber-purple/10 blur-[120px] animate-pulse-slow z-1" />
-      <div className="absolute bottom-1/4 right-1/10 w-[500px] h-[500px] rounded-full bg-cyber-cyan/15 blur-[160px] animate-pulse-slow z-1" />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 pt-16 sm:pt-24 pb-16">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-cyber-cyan bg-cyber-cyan/10 border border-cyber-cyan/30 mb-6 animate-bounce">
-          <Sparkles className="w-3.5 h-3.5" />
-          Premier Event Planners in Palamau, Jharkhand
-        </div>
-        
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight mb-8 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
-          <span className="block font-cormorant italic text-white/95">
-            {heroSlides[activeSlideIndex] && heroSlides[activeSlideIndex].caption 
-              ? heroSlides[activeSlideIndex].caption.split('with')[0] || "Crafting Extraordinary"
-              : "Crafting Extraordinary"}
-          </span>
-          <span className="block mt-3 bg-clip-text text-transparent bg-gradient-to-r from-cyber-cyan via-blue-400 to-cyber-purple glow-text-cyan font-cinzel font-semibold tracking-widest uppercase text-xl sm:text-3xl md:text-4xl">
-            {heroSlides[activeSlideIndex] && heroSlides[activeSlideIndex].caption 
-              ? (heroSlides[activeSlideIndex].caption.split('with')[1] ? "with " + heroSlides[activeSlideIndex].caption.split('with')[1] : "Memories & Events")
-              : "Memories & Events"}
-          </span>
-        </h1>
-          
+                  }`}
+                style={{ backgroundImage: `url(${slide.imageUrl})` }}
+              />
+            ))}
+            {/* Dark vignette overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-cyber-dark via-cyber-dark/50 to-cyber-dark/20" />
+          </div>
+        ) : (
+          /* Fallback grid background */
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        )}
+
+        {/* Glow grid mesh background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:4rem_4rem] z-1" />
+
+        {/* Glowing orbs */}
+        <div className="absolute top-1/4 left-1/10 w-96 h-96 rounded-full bg-cyber-purple/10 blur-[120px] animate-pulse-slow z-1" />
+        <div className="absolute bottom-1/4 right-1/10 w-[500px] h-[500px] rounded-full bg-cyber-cyan/15 blur-[160px] animate-pulse-slow z-1" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 pt-16 sm:pt-24 pb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-cyber-cyan bg-cyber-cyan/10 border border-cyber-cyan/30 mb-6 animate-bounce">
+            <Sparkles className="w-3.5 h-3.5" />
+            Premier Event Planners in Palamau, Jharkhand
+          </div>
+
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight mb-8 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+            <span className="block font-cormorant italic text-white/95">
+              {heroSlides[activeSlideIndex] && heroSlides[activeSlideIndex].caption
+                ? heroSlides[activeSlideIndex].caption.split('with')[0] || "Crafting Extraordinary"
+                : "Crafting Extraordinary"}
+            </span>
+            <span className="block mt-3 bg-clip-text text-transparent bg-gradient-to-r from-cyber-cyan via-blue-400 to-cyber-purple glow-text-cyan font-cinzel font-semibold tracking-widest uppercase text-xl sm:text-3xl md:text-4xl">
+              {heroSlides[activeSlideIndex] && heroSlides[activeSlideIndex].caption
+                ? (heroSlides[activeSlideIndex].caption.split('with')[1] ? "with " + heroSlides[activeSlideIndex].caption.split('with')[1] : "Memories & Events")
+                : "Memories & Events"}
+            </span>
+          </h1>
+
           <p className="hidden sm:block max-w-3xl mx-auto text-gray-400 text-lg sm:text-xl leading-relaxed mb-12">
             Sharma Events delivers luxury Wedding Decoration, robust Tent & Canopy setups, gourmet Catering, and concert-grade DJ Sound across Ramgarh, Chhattarpur, Palamau, and Jharkhand.
           </p>
-          
+
           {/* Quick Direct Contacts (Icons only) */}
           <div className="mt-10 mb-8 flex justify-center items-center gap-4">
-            <a 
-              href="https://wa.me/917903967800" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="p-3.5 rounded-xl bg-emerald-500/5 text-emerald-400 border border-emerald-500/25 hover:bg-emerald-500/15 hover:text-emerald-300 hover:border-emerald-500/50 backdrop-blur-md transition-all duration-350 flex items-center justify-center shadow-lg shadow-emerald-500/5 scale-100 hover:scale-105 active:scale-95 cursor-pointer" 
+            <a
+              href="https://wa.me/917903967800"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3.5 rounded-xl bg-emerald-500/5 text-emerald-400 border border-emerald-500/25 hover:bg-emerald-500/15 hover:text-emerald-300 hover:border-emerald-500/50 backdrop-blur-md transition-all duration-350 flex items-center justify-center shadow-lg shadow-emerald-500/5 scale-100 hover:scale-105 active:scale-95 cursor-pointer"
               title="Chat on WhatsApp"
             >
               <FaWhatsapp className="w-5 h-5" />
             </a>
-            
-            <a 
-              href="https://www.instagram.com/sharmaevents2000?igsh=ZTlvN2ZqMGVyOHo3" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="p-3.5 rounded-xl bg-pink-500/5 text-pink-400 border border-pink-500/25 hover:bg-pink-500/15 hover:text-pink-300 hover:border-pink-500/50 backdrop-blur-md transition-all duration-350 flex items-center justify-center shadow-lg shadow-pink-500/5 scale-100 hover:scale-105 active:scale-95 cursor-pointer" 
+
+            <a
+              href="https://www.instagram.com/sharmaevents2000?igsh=ZTlvN2ZqMGVyOHo3"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3.5 rounded-xl bg-pink-500/5 text-pink-400 border border-pink-500/25 hover:bg-pink-500/15 hover:text-pink-300 hover:border-pink-500/50 backdrop-blur-md transition-all duration-350 flex items-center justify-center shadow-lg shadow-pink-500/5 scale-100 hover:scale-105 active:scale-95 cursor-pointer"
               title="Follow on Instagram"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -332,9 +331,9 @@ export default function Home() {
               </svg>
             </a>
 
-            <a 
-              href="mailto:rahulsharma56291@gmail.com" 
-              className="p-3.5 rounded-xl bg-rose-500/5 text-rose-400 border border-rose-500/25 hover:bg-rose-500/15 hover:text-rose-300 hover:border-rose-500/50 backdrop-blur-md transition-all duration-355 flex items-center justify-center shadow-lg shadow-rose-500/5 scale-100 hover:scale-105 active:scale-95 cursor-pointer" 
+            <a
+              href="mailto:rahulsharma56291@gmail.com"
+              className="p-3.5 rounded-xl bg-rose-500/5 text-rose-400 border border-rose-500/25 hover:bg-rose-500/15 hover:text-rose-300 hover:border-rose-500/50 backdrop-blur-md transition-all duration-355 flex items-center justify-center shadow-lg shadow-rose-500/5 scale-100 hover:scale-105 active:scale-95 cursor-pointer"
               title="Send Email"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -361,69 +360,49 @@ export default function Home() {
             </a>
           </div>
 
-          {/* Quick Metrics */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-24">
-            {[
-            { num: "500+", label: "Successful Events" },
-            { num: "10+", label: "Years Experience" },
-            { num: "100+", label: "Client Satisfaction" },
-            { num: "15+", label: "Event Services" }
-          ].map((stat, i) => (
-            <div key={i} className="p-6 rounded-2xl glass-panel relative group overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyber-cyan/5 to-cyber-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="text-3xl sm:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyber-cyan to-cyber-purple mb-2">
-                {stat.num}
-              </div>
-              <div className="text-gray-400 text-xs sm:text-sm uppercase tracking-wider font-medium">
-                {stat.label}
-              </div>
-            </div>
-          ))}
         </div>
-      </div>
 
-      {/* Hero Slider Controllers */}
-      {heroSlides.length > 1 && (
-        <>
-          <button
-            onClick={() => setActiveSlideIndex((prev) => (prev === 0 ? heroSlides.length - 1 : prev - 1))}
-            className="absolute left-6 top-1/2 -translate-y-1/2 p-2.5 rounded-full glass-panel hover:bg-white/15 hover:text-white text-gray-400 transition-all focus:outline-none cursor-pointer hidden sm:block z-20 shadow-lg"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          <button
-            onClick={() => setActiveSlideIndex((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1))}
-            className="absolute right-6 top-1/2 -translate-y-1/2 p-2.5 rounded-full glass-panel hover:bg-white/15 hover:text-white text-gray-400 transition-all focus:outline-none cursor-pointer hidden sm:block z-20 shadow-lg"
-            aria-label="Next slide"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
+        {/* Hero Slider Controllers */}
+        {heroSlides.length > 1 && (
+          <>
+            <button
+              onClick={() => setActiveSlideIndex((prev) => (prev === 0 ? heroSlides.length - 1 : prev - 1))}
+              className="absolute left-6 top-1/2 -translate-y-1/2 p-2.5 rounded-full glass-panel hover:bg-white/15 hover:text-white text-gray-400 transition-all focus:outline-none cursor-pointer hidden sm:block z-20 shadow-lg"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={() => setActiveSlideIndex((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1))}
+              className="absolute right-6 top-1/2 -translate-y-1/2 p-2.5 rounded-full glass-panel hover:bg-white/15 hover:text-white text-gray-400 transition-all focus:outline-none cursor-pointer hidden sm:block z-20 shadow-lg"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
 
-          {/* Slider bottom indicators */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20 select-none">
-            {heroSlides.map((_, slideIdx) => (
-              <button
-                key={slideIdx}
-                onClick={() => setActiveSlideIndex(slideIdx)}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  activeSlideIndex === slideIdx 
-                    ? 'bg-cyber-cyan w-8' 
+            {/* Slider bottom indicators */}
+            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20 select-none">
+              {heroSlides.map((_, slideIdx) => (
+                <button
+                  key={slideIdx}
+                  onClick={() => setActiveSlideIndex(slideIdx)}
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${activeSlideIndex === slideIdx
+                    ? 'bg-cyber-cyan w-8'
                     : 'bg-white/20 hover:bg-white/40 w-3'
-                }`}
-                aria-label={`Go to slide ${slideIdx + 1}`}
-              />
-            ))}
-          </div>
-        </>
-      )}
-    </section>
+                    }`}
+                  aria-label={`Go to slide ${slideIdx + 1}`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </section>
 
       {/* About Section */}
       <section id="about" className="py-24 relative overflow-hidden bg-[#02050b]/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
+
             {/* Left side details */}
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest text-cyber-purple bg-cyber-purple/10 border border-cyber-purple/20">
@@ -460,9 +439,9 @@ export default function Home() {
               <div className="relative p-8 rounded-3xl glass-panel border border-white/10 overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-cyber-cyan/10 blur-xl" />
                 <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full bg-cyber-purple/10 blur-xl" />
-                
+
                 <h3 className="text-2xl font-bold text-white mb-4">Why Choose Sharma Events?</h3>
-                
+
                 <div className="space-y-6">
                   {[
                     { title: "Localized Mastery", desc: "Unmatched execution network across Ramgarh, Chhattarpur, and Palamau, ensuring timely delivery.", color: "border-l-cyber-cyan" },
@@ -485,7 +464,7 @@ export default function Home() {
       {/* Services Section */}
       <section id="services" className="py-24 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-cyber-cyan/5 blur-[160px]" />
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-cyber-cyan bg-cyber-cyan/10 border border-cyber-cyan/20 mb-4">
@@ -499,11 +478,33 @@ export default function Home() {
             </p>
           </div>
 
+          {/* Stats Section */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-20">
+            {[
+              { number: '500+', label: 'SUCCESSFUL EVENTS' },
+              { number: '25+', label: 'YEARS EXPERIENCE' },
+              { number: '500+', label: 'CLIENT SATISFACTION' },
+              { number: '15+', label: 'EVENT SERVICES' }
+            ].map((stat, i) => (
+              <div
+                key={i}
+                className="p-6 sm:p-8 rounded-2xl border border-white/5 bg-[#070b13]/60 backdrop-blur-md text-center flex flex-col justify-center items-center group hover:border-cyber-cyan/30 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+              >
+                <span className="text-3.5xl sm:text-4xl font-extrabold bg-gradient-to-r from-cyber-cyan via-[#8b5cf6] to-cyber-purple bg-clip-text text-transparent mb-2 transition-transform duration-300 group-hover:scale-105">
+                  {stat.number}
+                </span>
+                <span className="text-[10px] sm:text-xs font-bold text-gray-400 tracking-widest uppercase">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((svc, idx) => {
               const Icon = svc.icon;
               return (
-                <div 
+                <div
                   key={idx}
                   className="p-8 rounded-2xl glass-panel glass-panel-hover flex flex-col items-start text-left"
                 >
@@ -546,13 +547,13 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {posts.slice(0, visiblePostsCount).map((post) => (
-                <article 
+                <article
                   key={post.id}
                   className="rounded-2xl overflow-hidden glass-panel border border-white/5 flex flex-col h-full group"
                 >
                   <div className="relative h-56 bg-gray-900 overflow-hidden shrink-0">
-                    <img 
-                      src={post.mediaUrl} 
+                    <img
+                      src={post.mediaUrl}
                       alt={post.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -597,7 +598,7 @@ export default function Home() {
       {/* Gallery Section */}
       <section id="gallery" className="py-24 relative overflow-hidden">
         <div className="absolute top-1/4 right-0 w-[400px] h-[400px] rounded-full bg-cyber-purple/5 blur-[120px]" />
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-cyber-cyan bg-cyber-cyan/10 border border-cyber-cyan/20 mb-4">
@@ -620,11 +621,10 @@ export default function Home() {
                   setActiveFilter(cat);
                   setVisibleGalleryCount(9);
                 }}
-                className={`px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 border ${
-                  activeFilter === cat
-                    ? 'bg-gradient-to-r from-cyber-cyan to-cyber-purple border-transparent text-white shadow-md shadow-cyber-cyan/20'
-                    : 'glass-panel border-white/5 text-gray-400 hover:text-white hover:border-white/20'
-                }`}
+                className={`px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 border ${activeFilter === cat
+                  ? 'bg-gradient-to-r from-cyber-cyan to-cyber-purple border-transparent text-white shadow-md shadow-cyber-cyan/20'
+                  : 'glass-panel border-white/5 text-gray-400 hover:text-white hover:border-white/20'
+                  }`}
               >
                 {cat}
               </button>
@@ -648,9 +648,9 @@ export default function Home() {
                     }}
                     className="group relative rounded-2xl overflow-hidden glass-panel border border-white/5 cursor-pointer w-full aspect-video"
                   >
-                    <img 
-                      src={item.images?.[0] || ''} 
-                      alt={item.title} 
+                    <img
+                      src={item.images?.[0] || ''}
+                      alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     {/* Hover Overlay */}
@@ -682,28 +682,28 @@ export default function Home() {
 
       {/* Lightbox Modal */}
       {lightboxItem && (
-        <div 
+        <div
           className="fixed inset-0 z-100 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={() => setLightboxItem(null)}
         >
-          <button 
+          <button
             onClick={() => setLightboxItem(null)}
             className="absolute top-6 right-6 p-2 rounded-full glass-panel hover:text-white text-gray-400 transition-colors focus:outline-none z-50 cursor-pointer"
             aria-label="Close lightbox"
           >
             <X className="w-6 h-6" />
           </button>
-          
-          <div 
+
+          <div
             className="max-w-4xl w-full flex flex-col items-center gap-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative w-full max-h-[65vh] flex items-center justify-center rounded-2xl overflow-hidden glass-panel border border-white/10 group/slider">
-              
+
               {/* Main Image */}
-              <img 
-                src={lightboxItem.images?.[activeImageIndex] || ''} 
-                alt={lightboxItem.title} 
+              <img
+                src={lightboxItem.images?.[activeImageIndex] || ''}
+                alt={lightboxItem.title}
                 className="max-w-full max-h-[65vh] object-contain select-none"
               />
 
@@ -739,14 +739,14 @@ export default function Home() {
                 </>
               )}
             </div>
-            
+
             <div className="text-center max-w-2xl px-4">
               <span className="text-xs font-bold text-cyber-cyan uppercase tracking-widest">
                 {lightboxItem.category}
               </span>
               {lightboxItem.title && <h3 className="text-2xl font-bold text-white mt-1.5 mb-2">{lightboxItem.title}</h3>}
               {lightboxItem.description && <p className="text-gray-400 text-sm leading-relaxed">{lightboxItem.description}</p>}
-              
+
               {/* Bottom Dot indicators for slideshow */}
               {lightboxItem.images && lightboxItem.images.length > 1 && (
                 <div className="flex justify-center gap-1.5 mt-4">
@@ -754,11 +754,10 @@ export default function Home() {
                     <button
                       key={dotIdx}
                       onClick={() => setActiveImageIndex(dotIdx)}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        activeImageIndex === dotIdx 
-                          ? 'bg-cyber-cyan w-4' 
-                          : 'bg-white/20 hover:bg-white/40'
-                      }`}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${activeImageIndex === dotIdx
+                        ? 'bg-cyber-cyan w-4'
+                        : 'bg-white/20 hover:bg-white/40'
+                        }`}
                       aria-label={`Go to slide ${dotIdx + 1}`}
                     />
                   ))}
@@ -772,9 +771,9 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="py-24 relative overflow-hidden bg-[#02050b]/80 border-t border-white/5">
         <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-cyber-pink/5 blur-[120px]" />
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
+
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-cyber-pink bg-cyber-pink/10 border border-cyber-pink/20 mb-4">
               Get in Touch
@@ -788,12 +787,12 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16 items-start">
-            
+
             {/* Left Contact Information */}
             <div className="lg:col-span-5 space-y-6">
               <div className="p-8 rounded-2xl glass-panel border border-white/10 space-y-8">
                 <h3 className="text-xl font-bold text-white">Contact Information</h3>
-                
+
                 <div className="space-y-6">
                   <div className="flex gap-4">
                     <div className="p-3 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/20 text-cyber-cyan h-12 w-12 flex items-center justify-center shrink-0">
@@ -866,7 +865,7 @@ export default function Home() {
             <div className="lg:col-span-7">
               <div className="p-8 rounded-2xl glass-panel border border-white/10">
                 <h3 className="text-xl font-bold text-white mb-6">Send a Message</h3>
-                
+
                 {formStatus.success ? (
                   <div className="p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex flex-col items-center text-center gap-3">
                     <div className="p-2.5 rounded-full bg-emerald-500/20">
@@ -874,7 +873,7 @@ export default function Home() {
                     </div>
                     <h4 className="font-bold text-white text-lg">Inquiry Sent Successfully!</h4>
                     <p className="text-sm">Thank you for contacting Sharma Events. We will get in touch with you shortly.</p>
-                    <button 
+                    <button
                       onClick={() => setFormStatus({ submitting: false, success: false, error: null })}
                       className="mt-2 text-xs font-bold uppercase tracking-wider hover:underline"
                     >

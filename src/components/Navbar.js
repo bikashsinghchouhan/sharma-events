@@ -80,8 +80,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="h-9 w-9 sm:h-12 sm:w-12 relative transition-all duration-300 shrink-0 group-hover:scale-105">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="h-11 w-11 sm:h-15 sm:w-15 relative transition-all duration-300 shrink-0 group-hover:scale-105 flex items-center justify-center">
               <img 
                 src="/sharma-logo.png" 
                 alt="Sharma Events Logo" 
@@ -144,8 +144,8 @@ export default function Navbar() {
       >
         {/* Header */}
         <div className="flex items-center justify-between pb-6 border-b border-white/5">
-          <Link href="/" className="flex items-center space-x-3 group" onClick={() => setIsOpen(false)}>
-            <div className="h-10 w-10 relative transition-all duration-300 shrink-0">
+          <Link href="/" className="flex items-center gap-3 group" onClick={() => setIsOpen(false)}>
+            <div className="h-12 w-12 relative transition-all duration-300 shrink-0 flex items-center justify-center">
               <img 
                 src="/sharma-logo.png" 
                 alt="Sharma Events Logo" 
