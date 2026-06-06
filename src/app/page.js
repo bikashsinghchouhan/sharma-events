@@ -27,14 +27,8 @@ import {
   Play
 } from 'lucide-react';
 
-const fallbackSlides = [
-  { id: "slide-1", imageUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80", caption: "Creating Unforgettable Celebrations with Elegant Decorations", order: 1 },
-  { id: "slide-2", imageUrl: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=1920&q=80", caption: "Grand Waterproof Canopy & Heavy Truss Tent Installations", order: 2 },
-  { id: "slide-3", imageUrl: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1920&q=80", caption: "Concert Quality DJ & Synchronized Intelligent Lighting", order: 3 },
-  { id: "slide-4", imageUrl: "https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?auto=format&fit=crop&w=1920&q=80", caption: "Luxury Catering Displays & Dynamic Multi-Cuisine Presentation", order: 4 },
-  { id: "slide-5", imageUrl: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1920&q=80", caption: "Custom Balloons Styling & Birthday Backdrops for Kids & Adults", order: 5 },
-  { id: "slide-6", imageUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1920&q=80", caption: "Sharma Events - Your Partner in Creating Beautiful Memories", order: 6 },
-];
+import fallbackSlides from '../../data/hero-slides.json';
+
 
 export default function Home() {
   // States
@@ -77,27 +71,6 @@ export default function Home() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [lightboxItem]);
-
-  // Fetch posts, gallery and hero slides on load
-  useEffect(() => {
-    fetchPosts();
-    fetchGallery();
-    fetchHeroSlides();
-  }, []);
-
-  // Reset gallery pagination when active category changes
-  useEffect(() => {
-    setVisibleGalleryCount(9);
-  }, [activeFilter]);
-
-  // Slideshow autoplay cycling effect
-  useEffect(() => {
-    if (heroSlides.length <= 1) return;
-    const interval = setInterval(() => {
-      setActiveSlideIndex((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [heroSlides]);
 
   const fetchPosts = async () => {
     try {
@@ -143,6 +116,30 @@ export default function Home() {
       setGallery(fallbackGallery);
     }
   };
+
+  // Fetch posts, gallery and hero slides on load
+  useEffect(() => {
+    let active = true;
+    setTimeout(() => {
+      if (active) {
+        fetchPosts();
+        fetchGallery();
+        fetchHeroSlides();
+      }
+    }, 0);
+    return () => { active = false; };
+  }, []);
+
+
+  // Slideshow autoplay cycling effect
+  useEffect(() => {
+    if (heroSlides.length <= 1) return;
+    const interval = setInterval(() => {
+      setActiveSlideIndex((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [heroSlides]);
+
 
   // Filter categories
   const categories = ['All', 'Wedding', 'Birthday', 'Tent', 'Catering', 'DJ & Sound', 'Lighting'];
@@ -440,7 +437,7 @@ export default function Home() {
                 Based in the heart of Jharkhand, **Sharma Events** specializes in crafting events that stand out. With deep operations in Ramgarh, Chhattarpur, Palamau, and neighboring regions, we handle everything from intimate birthdays to massive luxury weddings.
               </p>
               <p className="text-gray-400 leading-relaxed">
-                Our approach blends traditional hospitality with futuristic aesthetics. We own high-end waterproof tent infrastructure, modern catering setups, high-fidelity sound columns, and computerized intelligent light arrays. We don't just supply—we design.
+                Our approach blends traditional hospitality with futuristic aesthetics. We own high-end waterproof tent infrastructure, modern catering setups, high-fidelity sound columns, and computerized intelligent light arrays. We don&apos;t just supply—we design.
               </p>
               <div className="pt-4 space-y-3.5">
                 {[
@@ -619,7 +616,10 @@ export default function Home() {
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setActiveFilter(cat)}
+                onClick={() => {
+                  setActiveFilter(cat);
+                  setVisibleGalleryCount(9);
+                }}
                 className={`px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 border ${
                   activeFilter === cat
                     ? 'bg-gradient-to-r from-cyber-cyan to-cyber-purple border-transparent text-white shadow-md shadow-cyber-cyan/20'

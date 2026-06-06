@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import dbConnect from '@/lib/dbConnect';
-import Message from '@/models/Message';
+import { readData, writeData } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,19 +13,16 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    await dbConnect();
-
-    // Sort by createdAt descending
-    const messages = await Message.find().sort({ createdAt: -1 });
+    const messages = readData('messages.json');
 
     const mappedMessages = messages.map(m => ({
-      id: m._id.toString(),
+      id: m.id || m._id?.toString() || `msg-${Math.random().toString(36).substr(2, 9)}`,
       name: m.name,
       email: m.email,
       phone: m.phone || '',
       eventDate: m.eventDate || '',
       message: m.message,
-      createdAt: m.createdAt.toISOString()
+      createdAt: m.createdAt || new Date().toISOString()
     }));
 
     return NextResponse.json(mappedMessages);
@@ -49,16 +45,20 @@ export async function POST(request) {
       );
     }
 
-    await dbConnect();
+    const messages = readData('messages.json');
 
-    const newMessageDoc = await Message.create({
+    const newMessage = {
+      id: `msg-${Date.now()}`,
       name,
       email,
       phone: phone || '',
       eventDate: eventDate || '',
-      message
-      // Schema will auto-set createdAt
-    });
+      message,
+      createdAt: new Date().toISOString()
+    };
+
+    messages.unshift(newMessage); // Add new message to the top of list
+    writeData('messages.json', messages);
 
     // Send email notification via SMTP/Nodemailer
     try {
@@ -85,3 +85,4 @@ export async function POST(request) {
     );
   }
 }
+

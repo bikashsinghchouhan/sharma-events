@@ -3,18 +3,29 @@ import path from 'path';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 
-export function readData(fileName) {
+export function getDirectDriveLink(url) {
+  if (!url || typeof url !== 'string') return url;
+  // Convert Google Drive share links to direct display URLs
+  if (url.includes('drive.google.com')) {
+    const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+      return `https://lh3.googleusercontent.com/d/${match[1]}`;
+    }
+  }
+  return url;
+}
+
+export function readData(fileName, defaultValue = []) {
   const filePath = path.join(DATA_DIR, fileName);
   if (!fs.existsSync(filePath)) {
-    // If it's a seed file, we return defaults or empty
-    return [];
+    return defaultValue;
   }
   try {
     const data = fs.readFileSync(filePath, 'utf8');
     return JSON.parse(data);
   } catch (error) {
     console.error(`Error reading ${fileName}:`, error);
-    return [];
+    return defaultValue;
   }
 }
 
@@ -32,3 +43,4 @@ export function writeData(fileName, data) {
     return false;
   }
 }
+

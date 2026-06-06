@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import dbConnect from '@/lib/dbConnect';
-import Message from '@/models/Message';
+import { readData, writeData } from '@/lib/db';
 
 export async function DELETE(request, { params }) {
   try {
@@ -14,12 +13,14 @@ export async function DELETE(request, { params }) {
 
     const { id } = await params;
     
-    await dbConnect();
-    
-    const message = await Message.findByIdAndDelete(id);
-    if (!message) {
+    const messages = readData('messages.json');
+    const filteredMessages = messages.filter(msg => (msg.id !== id && msg._id?.toString() !== id));
+
+    if (filteredMessages.length === messages.length) {
       return NextResponse.json({ error: 'Message not found' }, { status: 404 });
     }
+
+    writeData('messages.json', filteredMessages);
 
     return NextResponse.json({ success: true, message: 'Message deleted successfully' });
   } catch (error) {
@@ -29,3 +30,4 @@ export async function DELETE(request, { params }) {
     );
   }
 }
+

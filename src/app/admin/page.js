@@ -112,18 +112,6 @@ export default function Admin() {
     file: null
   });
 
-  // Check login on load
-  useEffect(() => {
-    checkLoginStatus();
-  }, []);
-
-  // Fetch dashboard data if authenticated
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchDashboardData();
-    }
-  }, [isAuthenticated]);
-
   const checkLoginStatus = async () => {
     try {
       const res = await fetch('/api/auth');
@@ -200,6 +188,28 @@ export default function Admin() {
       setLoadingData(false);
     }
   };
+
+  // Check login on load
+  useEffect(() => {
+    let active = true;
+    setTimeout(() => {
+      if (active) checkLoginStatus();
+    }, 0);
+    return () => { active = false; };
+  }, []);
+
+  // Fetch dashboard data if authenticated
+  useEffect(() => {
+    let active = true;
+    setTimeout(() => {
+      if (active && isAuthenticated) {
+        fetchDashboardData();
+      }
+    }, 0);
+    return () => { active = false; };
+  }, [isAuthenticated]);
+
+
 
   // File Upload Helper
   const uploadFile = async (file) => {
@@ -883,7 +893,7 @@ export default function Admin() {
                               <span className="text-[10px] text-gray-500">{msg.createdAt ? new Date(msg.createdAt).toLocaleDateString() : ''}</span>
                             </div>
                             <p className="text-gray-400 text-xs line-clamp-2 leading-relaxed bg-white/2 p-2.5 rounded-lg border border-white/5">
-                              "{msg.message}"
+                              &quot;{msg.message}&quot;
                             </p>
                           </div>
                         ))}

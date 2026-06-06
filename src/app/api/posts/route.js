@@ -1,36 +1,22 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import dbConnect from '@/lib/dbConnect';
-import Post from '@/models/Post';
-import { readData } from '@/lib/db';
+import { readData, writeData, getDirectDriveLink } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    await dbConnect();
+    const posts = readData('posts.json');
     
-    // Auto-seeding check
-    const count = await Post.countDocuments();
-    if (count === 0) {
-      const fileSeeds = readData('posts.json');
-      if (fileSeeds && fileSeeds.length > 0) {
-        // Strip out the manual string IDs so MongoDB generates ObjectId
-        const formattedSeeds = fileSeeds.map(({ id, ...rest }) => rest);
-        await Post.insertMany(formattedSeeds);
-      }
-    }
-
-    const posts = await Post.find().sort({ date: -1 });
-    
-    // Map to frontend expected format (id instead of _id)
+    // Ensure Google Drive links are mapped and ids are clean strings
     const mappedPosts = posts.map(p => ({
-      id: p._id.toString(),
-      title: p.title,
-      description: p.description,
-      mediaUrl: p.mediaUrl,
-      mediaType: p.mediaType,
-      date: p.date
+      id: p.id || p._id?.toString() || `post-${Math.random().toString(36).substr(2, 9)}`,
+      title: p.title || '',
+      description: p.description || p.discription || '',
+      discription: p.discription || p.description || '',
+      mediaUrl: getDirectDriveLink(p.mediaUrl),
+      mediaType: p.mediaType || 'image',
+      date: p.date || new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
     }));
 
     return NextResponse.json(mappedPosts);
@@ -51,29 +37,34 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    await dbConnect();
-
-    const { title, description, mediaUrl, mediaType } = await request.json();
-    if (!title || !description || !mediaUrl) {
+    const { title, description, discription, mediaUrl, mediaType } = await request.json();
+    if (!title || (!description && !discription) || !mediaUrl) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const newPostDoc = await Post.create({
-      title,
-      description,
-      mediaUrl,
-      mediaType: mediaType || 'image',
-      // Schema will auto-set the date
+    const posts = readData('posts.json');
+
+    // Format local date string like "June 6, 2026"
+    const todayStr = new Date().toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
     });
 
-    return NextResponse.json({
-      id: newPostDoc._id.toString(),
-      title: newPostDoc.title,
-      description: newPostDoc.description,
-      mediaUrl: newPostDoc.mediaUrl,
-      mediaType: newPostDoc.mediaType,
-      date: newPostDoc.date
-    });
+    const newPost = {
+      id: `post-${Date.now()}`,
+      title,
+      description: description || discription,
+      discription: discription || description,
+      mediaUrl: getDirectDriveLink(mediaUrl),
+      mediaType: mediaType || 'image',
+      date: todayStr
+    };
+
+    posts.unshift(newPost); // Add new post to top of list
+    writeData('posts.json', posts);
+
+    return NextResponse.json(newPost);
   } catch (error) {
     return NextResponse.json(
       { error: 'Server error: ' + error.message },
@@ -81,3 +72,4 @@ export async function POST(request) {
     );
   }
 }
+

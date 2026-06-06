@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server';
+import { readData } from '@/lib/db';
 
 export async function POST(request) {
   try {
     const { username, password } = await request.json();
     
-    // Default admin credentials
-    if (username === 'admin' && password === 'sharma@2026') {
+    // Read superadmin credentials from admin.json, fallback to request details if not found
+    const credentials = readData('admin.json', { username: 'ADM001', password: 'Rahul@3967' });
+    
+    if (username === credentials.username && password === credentials.password) {
       const response = NextResponse.json({ 
         success: true, 
         message: 'Logged in successfully' 
@@ -57,3 +60,4 @@ export async function DELETE() {
   
   return response;
 }
+

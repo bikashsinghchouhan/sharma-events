@@ -1,36 +1,21 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import dbConnect from '@/lib/dbConnect';
-import GalleryItem from '@/models/GalleryItem';
-import { readData } from '@/lib/db';
+import { readData, writeData, getDirectDriveLink } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    await dbConnect();
+    const gallery = readData('gallery.json');
 
-    // Auto-seeding check
-    const count = await GalleryItem.countDocuments();
-    if (count === 0) {
-      const fileSeeds = readData('gallery.json');
-      if (fileSeeds && fileSeeds.length > 0) {
-        // Strip out the manual string IDs so MongoDB generates ObjectId
-        const formattedSeeds = fileSeeds.map(({ id, ...rest }) => rest);
-        await GalleryItem.insertMany(formattedSeeds);
-      }
-    }
-
-    // Sort items descending by creation id
-    const gallery = await GalleryItem.find().sort({ _id: -1 });
-
-    // Map to frontend expected format
+    // Map to frontend expected format and ensure any drive URLs are parsed
     const mappedGallery = gallery.map(g => ({
-      id: g._id.toString(),
+      id: g.id || g._id?.toString() || `gal-${Math.random().toString(36).substr(2, 9)}`,
       title: g.title || '',
-      description: g.description || '',
-      images: g.images || [],
-      category: g.category
+      description: g.description || g.content || '',
+      content: g.content || g.description || '',
+      images: (g.images || []).map(url => getDirectDriveLink(url)),
+      category: g.category || 'Other'
     }));
 
     return NextResponse.json(mappedGallery);
@@ -51,9 +36,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    await dbConnect();
-
-    const { title, description, images, category } = await request.json();
+    const { title, description, content, images, category } = await request.json();
     if (!images || !Array.isArray(images) || images.length === 0 || !category) {
       return NextResponse.json(
         { error: 'Missing required fields (images array, category)' }, 
@@ -61,20 +44,24 @@ export async function POST(request) {
       );
     }
 
-    const newItemDoc = await GalleryItem.create({
-      title: title || '',
-      description: description || '',
-      images,
-      category
-    });
+    const gallery = readData('gallery.json');
 
-    return NextResponse.json({
-      id: newItemDoc._id.toString(),
-      title: newItemDoc.title,
-      description: newItemDoc.description,
-      images: newItemDoc.images,
-      category: newItemDoc.category
-    });
+    // Parse image links (e.g. Google Drive URLs)
+    const formattedImages = images.map(url => getDirectDriveLink(url));
+
+    const newItem = {
+      id: `gal-${Date.now()}`,
+      title: title || '',
+      description: description || content || '',
+      content: content || description || '',
+      images: formattedImages,
+      category
+    };
+
+    gallery.unshift(newItem); // Add new item to the beginning
+    writeData('gallery.json', gallery);
+
+    return NextResponse.json(newItem);
   } catch (error) {
     return NextResponse.json(
       { error: 'Server error: ' + error.message },
@@ -82,3 +69,4 @@ export async function POST(request) {
     );
   }
 }
+

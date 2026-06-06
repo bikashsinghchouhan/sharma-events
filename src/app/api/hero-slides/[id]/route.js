@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import dbConnect from '@/lib/dbConnect';
-import HeroSlide from '@/models/HeroSlide';
+import { readData, writeData, getDirectDriveLink } from '@/lib/db';
 
 export async function PUT(request, { params }) {
   try {
@@ -15,21 +14,27 @@ export async function PUT(request, { params }) {
     const { id } = await params;
     const { imageUrl, caption, order } = await request.json();
 
-    await dbConnect();
+    const slides = readData('hero-slides.json');
+    const index = slides.findIndex(slide => (slide.id === id || slide._id?.toString() === id));
 
-    const slide = await HeroSlide.findById(id);
-    if (!slide) {
+    if (index === -1) {
       return NextResponse.json({ error: 'Slide not found' }, { status: 404 });
     }
 
-    if (imageUrl !== undefined) slide.imageUrl = imageUrl;
+    const slide = slides[index];
+
+    if (imageUrl !== undefined) slide.imageUrl = getDirectDriveLink(imageUrl);
     if (caption !== undefined) slide.caption = caption;
     if (order !== undefined) slide.order = Number(order);
 
-    await slide.save();
+    slides[index] = slide;
+    // Re-sort slides by order
+    slides.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+    writeData('hero-slides.json', slides);
 
     return NextResponse.json({
-      id: slide._id.toString(),
+      id: slide.id || slide._id?.toString() || id,
       imageUrl: slide.imageUrl,
       caption: slide.caption,
       order: slide.order
@@ -53,12 +58,14 @@ export async function DELETE(request, { params }) {
 
     const { id } = await params;
     
-    await dbConnect();
+    const slides = readData('hero-slides.json');
+    const filteredSlides = slides.filter(slide => (slide.id !== id && slide._id?.toString() !== id));
 
-    const slide = await HeroSlide.findByIdAndDelete(id);
-    if (!slide) {
+    if (filteredSlides.length === slides.length) {
       return NextResponse.json({ error: 'Slide not found' }, { status: 404 });
     }
+
+    writeData('hero-slides.json', filteredSlides);
 
     return NextResponse.json({ success: true, message: 'Slide deleted successfully' });
   } catch (error) {
@@ -68,3 +75,4 @@ export async function DELETE(request, { params }) {
     );
   }
 }
+

@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import dbConnect from '@/lib/dbConnect';
-import GalleryItem from '@/models/GalleryItem';
+import { readData, writeData, getDirectDriveLink } from '@/lib/db';
 
 export async function PUT(request, { params }) {
   try {
@@ -13,26 +12,39 @@ export async function PUT(request, { params }) {
     }
 
     const { id } = await params;
-    const { title, description, images, category } = await request.json();
+    const { title, description, content, images, category } = await request.json();
 
-    await dbConnect();
+    const gallery = readData('gallery.json');
+    const index = gallery.findIndex(item => (item.id === id || item._id?.toString() === id));
 
-    const item = await GalleryItem.findById(id);
-    if (!item) {
+    if (index === -1) {
       return NextResponse.json({ error: 'Gallery item not found' }, { status: 404 });
     }
 
+    const item = gallery[index];
+
     if (title !== undefined) item.title = title;
-    if (description !== undefined) item.description = description;
-    if (images !== undefined && Array.isArray(images)) item.images = images;
+    if (description !== undefined) {
+      item.description = description;
+      item.content = description;
+    }
+    if (content !== undefined) {
+      item.content = content;
+      item.description = content;
+    }
+    if (images !== undefined && Array.isArray(images)) {
+      item.images = images.map(url => getDirectDriveLink(url));
+    }
     if (category !== undefined) item.category = category;
 
-    await item.save();
+    gallery[index] = item;
+    writeData('gallery.json', gallery);
 
     return NextResponse.json({
-      id: item._id.toString(),
+      id: item.id || item._id?.toString() || id,
       title: item.title,
       description: item.description,
+      content: item.content,
       images: item.images,
       category: item.category
     });
@@ -55,12 +67,14 @@ export async function DELETE(request, { params }) {
 
     const { id } = await params;
     
-    await dbConnect();
+    const gallery = readData('gallery.json');
+    const filteredGallery = gallery.filter(item => (item.id !== id && item._id?.toString() !== id));
 
-    const item = await GalleryItem.findByIdAndDelete(id);
-    if (!item) {
+    if (filteredGallery.length === gallery.length) {
       return NextResponse.json({ error: 'Gallery item not found' }, { status: 404 });
     }
+
+    writeData('gallery.json', filteredGallery);
 
     return NextResponse.json({ success: true, message: 'Gallery item deleted successfully' });
   } catch (error) {
@@ -70,3 +84,4 @@ export async function DELETE(request, { params }) {
     );
   }
 }
+

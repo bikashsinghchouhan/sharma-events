@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import dbConnect from '@/lib/dbConnect';
-import Post from '@/models/Post';
+import { readData, writeData, getDirectDriveLink } from '@/lib/db';
 
 export async function PUT(request, { params }) {
   try {
@@ -13,26 +12,37 @@ export async function PUT(request, { params }) {
     }
 
     const { id } = await params;
-    const { title, description, mediaUrl, mediaType } = await request.json();
+    const { title, description, discription, mediaUrl, mediaType } = await request.json();
 
-    await dbConnect();
+    const posts = readData('posts.json');
+    const index = posts.findIndex(post => (post.id === id || post._id?.toString() === id));
 
-    const post = await Post.findById(id);
-    if (!post) {
+    if (index === -1) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
+    const post = posts[index];
+
     if (title !== undefined) post.title = title;
-    if (description !== undefined) post.description = description;
-    if (mediaUrl !== undefined) post.mediaUrl = mediaUrl;
+    if (description !== undefined) {
+      post.description = description;
+      post.discription = description;
+    }
+    if (discription !== undefined) {
+      post.discription = discription;
+      post.description = discription;
+    }
+    if (mediaUrl !== undefined) post.mediaUrl = getDirectDriveLink(mediaUrl);
     if (mediaType !== undefined) post.mediaType = mediaType;
 
-    await post.save();
+    posts[index] = post;
+    writeData('posts.json', posts);
 
     return NextResponse.json({
-      id: post._id.toString(),
+      id: post.id || post._id?.toString() || id,
       title: post.title,
       description: post.description,
+      discription: post.discription,
       mediaUrl: post.mediaUrl,
       mediaType: post.mediaType,
       date: post.date
@@ -56,12 +66,14 @@ export async function DELETE(request, { params }) {
 
     const { id } = await params;
     
-    await dbConnect();
-    
-    const post = await Post.findByIdAndDelete(id);
-    if (!post) {
+    const posts = readData('posts.json');
+    const filteredPosts = posts.filter(post => (post.id !== id && post._id?.toString() !== id));
+
+    if (filteredPosts.length === posts.length) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
+
+    writeData('posts.json', filteredPosts);
 
     return NextResponse.json({ success: true, message: 'Post deleted successfully' });
   } catch (error) {
@@ -71,3 +83,4 @@ export async function DELETE(request, { params }) {
     );
   }
 }
+

@@ -25,8 +25,13 @@ export default function Navbar() {
 
   // Close mobile drawer on route changes
   useEffect(() => {
-    setIsOpen(false);
+    let active = true;
+    setTimeout(() => {
+      if (active) setIsOpen(false);
+    }, 0);
+    return () => { active = false; };
   }, [pathname]);
+
 
   // Prevent scroll when mobile drawer is open
   useEffect(() => {
