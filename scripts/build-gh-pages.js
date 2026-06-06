@@ -15,7 +15,7 @@ try {
   }
 
   console.log('Building static export...');
-  execSync('next build', {
+  execSync('npx next build', {
     stdio: 'inherit',
     env: { ...process.env, GITHUB_PAGES: 'true' }
   });
