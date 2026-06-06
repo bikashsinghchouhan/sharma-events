@@ -10,7 +10,7 @@ let apiMoved = false;
 try {
   if (fs.existsSync(apiPath)) {
     console.log('Moving API folder to project root for static build...');
-    execSync('powershell -Command "Move-Item -Path src/app/api -Destination src/api_backup"');
+    fs.renameSync(apiPath, backupPath);
     apiMoved = true;
   }
 
@@ -29,9 +29,10 @@ try {
   if (apiMoved && fs.existsSync(backupPath)) {
     console.log('Restoring API folder to src/app/api...');
     try {
-      execSync('powershell -Command "Move-Item -Path src/api_backup -Destination src/app/api"');
+      fs.renameSync(backupPath, apiPath);
     } catch (e) {
       console.error('Failed to restore API folder:', e);
     }
   }
 }
+
