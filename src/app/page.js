@@ -28,6 +28,7 @@ import {
 } from 'lucide-react';
 
 import fallbackSlides from '../../data/hero-slides.json';
+import { getDirectDriveLink } from '@/lib/driveUtils';
 
 
 export default function Home() {
@@ -77,13 +78,23 @@ export default function Home() {
       const res = await fetch('/api/posts');
       if (res.ok) {
         const data = await res.json();
-        setPosts(data); // fetch all posts to support pagination on client
+        const formatted = data.map(p => ({
+          ...p,
+          mediaUrl: getDirectDriveLink(p.mediaUrl)
+        }));
+        setPosts(formatted); // fetch all posts to support pagination on client
       } else {
-        setPosts(fallbackPosts);
+        setPosts(fallbackPosts.map(p => ({
+          ...p,
+          mediaUrl: getDirectDriveLink(p.mediaUrl)
+        })));
       }
     } catch (err) {
       console.warn("Failed to fetch posts, using local data fallback:", err);
-      setPosts(fallbackPosts);
+      setPosts(fallbackPosts.map(p => ({
+        ...p,
+        mediaUrl: getDirectDriveLink(p.mediaUrl)
+      })));
     }
   };
 
@@ -92,13 +103,23 @@ export default function Home() {
       const res = await fetch('/api/hero-slides');
       if (res.ok) {
         const data = await res.json();
-        setHeroSlides(data);
+        const formatted = data.map(s => ({
+          ...s,
+          imageUrl: getDirectDriveLink(s.imageUrl)
+        }));
+        setHeroSlides(formatted);
       } else {
-        setHeroSlides(fallbackSlides);
+        setHeroSlides(fallbackSlides.map(s => ({
+          ...s,
+          imageUrl: getDirectDriveLink(s.imageUrl)
+        })));
       }
     } catch (err) {
       console.warn("Failed to fetch slides, using local data fallback:", err);
-      setHeroSlides(fallbackSlides);
+      setHeroSlides(fallbackSlides.map(s => ({
+        ...s,
+        imageUrl: getDirectDriveLink(s.imageUrl)
+      })));
     }
   };
 
@@ -107,13 +128,23 @@ export default function Home() {
       const res = await fetch('/api/gallery');
       if (res.ok) {
         const data = await res.json();
-        setGallery(data);
+        const formatted = data.map(g => ({
+          ...g,
+          images: (g.images || []).map(url => getDirectDriveLink(url))
+        }));
+        setGallery(formatted);
       } else {
-        setGallery(fallbackGallery);
+        setGallery(fallbackGallery.map(g => ({
+          ...g,
+          images: (g.images || []).map(url => getDirectDriveLink(url))
+        })));
       }
     } catch (err) {
       console.warn("Failed to fetch gallery, using local data fallback:", err);
-      setGallery(fallbackGallery);
+      setGallery(fallbackGallery.map(g => ({
+        ...g,
+        images: (g.images || []).map(url => getDirectDriveLink(url))
+      })));
     }
   };
 
