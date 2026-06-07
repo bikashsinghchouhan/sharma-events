@@ -462,7 +462,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-24 relative overflow-hidden">
+      <section id="services" className="py-5 md:py-10 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-cyber-cyan/5 blur-[160px]" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -505,7 +505,7 @@ export default function Home() {
             })}
           </div>
           {/* Stats Section */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-20">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto ">
             {[
               { number: '500+', label: 'SUCCESSFUL EVENTS' },
               { number: '25+', label: 'YEARS EXPERIENCE' },
@@ -530,7 +530,7 @@ export default function Home() {
 
       {/* Recent Posts (News / Updates) Section */}
       {posts.length > 0 && (
-        <section className="py-24 relative overflow-hidden bg-[#02050b]/80 border-t border-b border-white/5">
+        <section className="py-10 md:py-24 relative overflow-hidden bg-[#02050b]/80 border-t border-b border-white/5">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
               <div>
@@ -597,7 +597,7 @@ export default function Home() {
       )}
 
       {/* Gallery Section */}
-      <section id="gallery" className="py-24 relative overflow-hidden">
+      <section id="gallery" className="py-10 md:py-24 relative overflow-hidden">
         <div className="absolute top-1/4 right-0 w-[400px] h-[400px] rounded-full bg-cyber-purple/5 blur-[120px]" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -791,7 +791,7 @@ export default function Home() {
 
             {/* Left Contact Information */}
             <div className="lg:col-span-5 space-y-6">
-              <div className="p-8 rounded-2xl glass-panel border border-white/10 space-y-8">
+              <div className="p-4 md:p-8 rounded-2xl glass-panel border border-white/10 space-y-8">
                 <h3 className="text-xl font-bold text-white">Contact Information</h3>
 
                 <div className="space-y-6">
@@ -848,7 +848,7 @@ export default function Home() {
                   </div>
 
                   <div className="flex gap-4">
-                    <div className="p-3 rounded-xl bg-cyber-pink/10 border border-cyber-pink/20 text-cyber-pink h-12 w-12 flex items-center justify-center shrink-0">
+                    <div className="p-2 md:p-3 rounded-xl bg-cyber-pink/10 border border-cyber-pink/20 text-cyber-pink h-12 w-12 flex items-center justify-center shrink-0">
                       <MapPin className="w-5 h-5" />
                     </div>
                     <div>
@@ -990,8 +990,8 @@ export default function Home() {
           </div>
 
           {/* Embedded Google Map */}
-          <div className="rounded-3xl overflow-hidden glass-panel border border-white/10 p-2 shadow-2xl relative">
-            <div className="absolute top-6 left-6 px-3 py-1.5 rounded-full bg-cyber-dark/80 backdrop-blur-md border border-white/10 text-xs font-semibold uppercase tracking-wider text-white flex items-center gap-2 z-10">
+          <div className="rounded-xl overflow-hidden glass-panel border border-white/10 p-0 md:p-2 shadow-xl relative">
+            <div className="absolute top-3 md:top-6 left-2 md:left-6 px-2 md:px-3 py-1.5 rounded-full bg-cyber-dark/80 backdrop-blur-md border border-white/10 text-[10px] md:text-xs font-semibold uppercase tracking-wider text-white flex items-center gap-2 z-10">
               <MapPin className="w-4 h-4 text-cyber-cyan" />
               Service Area: Chhattarpur, Palamau
             </div>

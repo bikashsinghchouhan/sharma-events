@@ -9,7 +9,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#02050c] border-t border-white/5 pt-16 pb-8 overflow-hidden">
+    <footer className="relative bg-[#02050c] border-t border-white/5 pt-8 md:pt-16 pb-4 md:pb-8 overflow-hidden">
       {/* Background glow orbs */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 rounded-full bg-cyber-purple/5 blur-[80px]" />
       <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-cyber-cyan/5 blur-[80px]" />
@@ -20,10 +20,10 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-1">
             <Link href="/" className="flex items-center space-x-3 mb-4 group">
               <div className="h-9 w-9 sm:h-11 sm:w-11 relative transition-all duration-300 shrink-0 group-hover:scale-105">
-                <img 
-                  src="/sharma-logo.png" 
-                  alt="Sharma Events Logo" 
-                  className="h-full w-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" 
+                <img
+                  src="/sharma-logo.png"
+                  alt="Sharma Events Logo"
+                  className="h-full w-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]"
                 />
               </div>
               <span className="font-extrabold text-sm sm:text-xl lg:text-2xl tracking-wider text-white">
@@ -120,10 +120,10 @@ export default function Footer() {
           <div>
             © {new Date().getFullYear()} <span className="text-gray-400">Sharma Events</span>. All rights reserved.
           </div>
-          
+
           <div className="flex items-center gap-2">
             <span className="text-gray-500">Developed by:</span>
-            <span className="text-gray-300 font-medium">Bikash Singh Chauhan</span>
+            <span className="text-gray-400 font-medium">Bikash Singh Chauhan</span>
             <div className="flex items-center gap-2 ml-1">
               <a
                 href="https://www.instagram.com/bikash_singh_chauhan_01?igsh=MWR3dGhzaW54eXJhMA=="
