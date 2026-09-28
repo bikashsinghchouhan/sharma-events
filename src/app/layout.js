@@ -22,8 +22,8 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata = {
   title: "Sharma Events | Wedding Decoration, Tent Setup, DJ & Catering in Jharkhand",
-  description: "Sharma Events (sharmaevents.co.in) is the premier event planning company in Ramgarh, Chhattarpur, Palamau, and Jharkhand. We provide Wedding Decoration, Tent & Canopy Setup, Catering Services, DJ & Sound Setup, and Event Lighting.",
-  keywords: "Sharma Events, sharmaevents.co.in, Wedding Decoration Palamau, Tent Setup Chhattarpur, Catering Services Palamau, DJ and Sound Jharkhand, Event Lighting Ramgarh, Event Management Jharkhand",
+  description: "Sharma Events (sharmaevents.co.in) is the premier event planning company in Ramgarh, Chhattarpur, Palamau, and Jharkhand. We provide Wedding Decoration, Tent & Canopy Setup, Catering Services, DJ & Sound Setup, and Event Lighting. Address: Ramgarh Chhattarpur Palamau Jharkhand 822113.",
+  keywords: "Sharma Events, sharma event, sharma event ramgarh, ramgarh chhattarpur palamau jharkhand 822113, sharmaevents.co.in, Wedding Decoration Palamau, Tent Setup Chhattarpur, Catering Services Palamau, DJ and Sound Jharkhand, Event Lighting Ramgarh, Event Management Jharkhand",
   authors: [{ name: "Sharma Events" }],
 };
 
